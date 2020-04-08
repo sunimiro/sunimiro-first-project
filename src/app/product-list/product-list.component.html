@@ -1,0 +1,46 @@
+<h2>Products</h2>
+<p> {{testo}} - {{testoextra}}</p>
+
+
+<div *ngFor="let product of products; index as productId">
+
+	<h3>
+		<a [title]="product.name + ' details'" [routerLink]="['/products', productId]">
+			{{ product.name }} - {{ product.description }} - Id: {{ productId}}
+		</a>
+	</h3>
+
+	<div id='ExtraText' [ngSwitch]="product.name">
+		<p id='ExtraHuawei' *ngSwitchCase="'Huawei'">Extra Text for Huawei</p>
+		<p *ngSwitchCase="'Phone Mini'">Extra text for Phone mini</p>
+		<p *ngSwitchCase="'Phone XL'">Extra text for Phone XL</p>
+		<p *ngSwitchDefault>No Exta Text</p>
+	</div>
+
+	<p *ngIf="product.name=='Huawei'; else ShowDefault">
+		Description: {{product.description}}
+	</p>
+
+	<ng-template #ShowDefault>
+		<p>
+			Description not available because of not Huawei
+		</p>
+	</ng-template>
+
+
+	<app-product-alerts [product]="product" (notify)="onNotify()">
+
+	</app-product-alerts>
+	<button (click)="share()">
+      Share
+    </button>
+
+
+</div>
+
+
+<!-- 
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->
